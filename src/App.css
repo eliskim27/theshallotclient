@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.articleImage {
+  height: 360px;
+  width: auto;
+}
+
+.articleCard {
+  border: 2px;
+  border-style: solid;
+  padding: 10px;
+}
