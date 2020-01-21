@@ -12,8 +12,10 @@ class App extends React.Component {
     allUsers: [],
     allStars: [],
     // currentUser: null
-    currentTestUserId: 3,
-    displayArticles: []
+    currentTestUserId: 1,
+    navBarTestId: 4,
+    displayArticles: [],
+    filter : false
   }
 
   
@@ -30,34 +32,30 @@ class App extends React.Component {
     .then(data => {this.setState({allStars: data})})
   }
 
-  // for on submit of login form
-  // will be given id from login function
-  // findCurrentUser = (id) => {
-  //   allUsers.find(user => user.name === id.name)
-  //   this.setState({
-  //     currentUser: id
-  //   })
-  // }
 
-
+  filterClick = () => {
+    console.log("clicked!")
+    this.setState({filter : !this.state.filter})
+    let display =  this.state.allStars.filter(stars => stars.user_id === this.state.currentTestUserId)
+    // console.log(display.filter(articles => this.state.allArticles.id === articles.article_id)) ***does not work
+    console.log(display)
+    this.setState({displayArticles : display})
+  }
 
 
 
 
   render(){
+  //   console.log(this.state.allStars)
+    console.log(this.state.allUsers)
+  //   console.log(this.state.allArticles)
     return (
-      <div className="App">
-        <NavBar currentTestUserName={this.state.currentTestUserName}/>
-        <SourceBar />
-        <ArticleContainer 
-          allArticles={this.state.allArticles}
-        />
-        <StarContainer
-          displayArticles={this.state.displayArticles}
-        />
+      <div className="App"> 
+          <NavBar user={this.state.allUsers.find(thing => thing.id === this.state.navBarTestId)} filterclick = {this.filterClick}/>
+          <SourceBar />
+          {this.state.filter? <StarContainer displayArticles={this.state.displayArticles}/> :<ArticleContainer allArticles={this.state.allArticles}/>}
       </div>
     );
   }
 }
-
 export default App;
