@@ -4,6 +4,7 @@ import ArticleContainer from './ArticleContainer'
 import NavBar from './NavBar'
 import SourceBar from './SourceBar'
 import StarContainer from './StarContainer';
+import ArticleDetails from './ArticleDetails';
 
 
 class App extends React.Component {
@@ -13,12 +14,16 @@ class App extends React.Component {
     allStars: [],
     // currentUser: null
     currentTestUserId: 1,
-    navBarTestId: 4,
+    navBarTestId: 7,
     displayArticles: [],
-    filter : false
+    filter : false,
+    singlearticle : false,
+    singlearticleshow : {}
   }
 
-  
+  detailsBackClick = () => {
+    this.setState({ singlearticle: !this.state.singlearticle})
+  }
 
   componentDidMount(){
     fetch(`http://localhost:3000/api/v1/articles`)
@@ -34,26 +39,65 @@ class App extends React.Component {
 
 
   filterClick = () => {
-    console.log("clicked!")
     this.setState({filter : !this.state.filter})
-    let display =  this.state.allStars.filter(stars => stars.user_id === this.state.currentTestUserId)
-    // console.log(display.filter(articles => this.state.allArticles.id === articles.article_id)) ***does not work
-    console.log(display)
-    this.setState({displayArticles : display})
+    let starsByUser =  this.state.allStars.filter(stars => stars.user_id === this.state.currentTestUserId)
+    let starArticleIdsArray = starsByUser.map(star => star.article_id)
+    let filterArticles = starArticleIdsArray.map(articleId => {
+      return(this.state.allArticles.find(article => article.id === articleId))
+    })
+        this.setState({displayArticles : filterArticles})
+  }
+
+  singleClick = (article) => {
+    this.setState({singlearticle : !this.state.singlearticle})  
+    this.setState({singlearticleshow : article })
+  }
+
+  favoriteClick = (article) => {
+    fetch(`http://localhost:3000/api/v1/stars`, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: this.state.navBarTestId,
+        article_id: article.id
+      })
+    })
+    .then(resp => resp.json())
+    .then(resp => console.log(resp))
   }
 
 
-
-
   render(){
-  //   console.log(this.state.allStars)
-    console.log(this.state.allUsers)
-  //   console.log(this.state.allArticles)
     return (
       <div className="App"> 
-          <NavBar user={this.state.allUsers.find(thing => thing.id === this.state.navBarTestId)} filterclick = {this.filterClick}/>
-          <SourceBar />
-          {this.state.filter? <StarContainer displayArticles={this.state.displayArticles}/> :<ArticleContainer allArticles={this.state.allArticles}/>}
+          <NavBar 
+            user={this.state.allUsers.find(thing => thing.id === this.state.navBarTestId)} 
+            filterclick = {this.filterClick}
+            detailsBackClick={this.detailsBackClick}
+            singlearticle={this.state.singlearticle}
+            filter={this.state.filter}
+          />
+          <SourceBar 
+
+          />
+          {this.state.singlearticle ?
+            <ArticleDetails 
+              article={this.state.singlearticleshow} 
+              favoriteClick={this.favoriteClick} 
+            /> :
+            this.state.filter ? 
+              <StarContainer 
+                displayArticles={this.state.displayArticles} 
+                singleclick={this.singleClick}
+              /> : 
+              <ArticleContainer 
+                allArticles={this.state.allArticles}
+                singleclick={this.singleClick}
+              />
+          }
       </div>
     );
   }

@@ -7,10 +7,17 @@ class NavBar extends React.Component {
         return (
             <div>
                 <div>
-                        <span>Hey {(this.props.user ? this.props.user.name : '')}! What's happenin' </span>
+                    <span>Hey {(this.props.user ? this.props.user.name : '')}! What's happenin' </span>
                 </div>
-                <button onClick={this.props.filterclick}>filter articles</button>
-
+                
+                {this.props.singlearticle ? 
+                <button onClick={this.props.detailsBackClick}>Go Back</button> :
+                <button 
+                    onClick={this.props.filterclick}
+                >
+                    {this.props.filter ? "Show All Articles" : "See Favorites"}
+                </button>
+                }
             </div>
 
         )
