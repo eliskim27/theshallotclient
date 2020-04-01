@@ -40,10 +40,73 @@
 .articleImage {
   height: 360px;
   width: auto;
+  border: 2px;
+  border-style: solid;
 }
 
 .articleCard {
+  height: 60%;
+  width: auto;
+  /* border: 2px;
+  border-style: solid; */
+  padding: 10px;
+  /* background-color: yellow; */
+}
+
+.articleCard:hover {
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.imageDetails {
+  height: 580px;
+  width: auto;
   border: 2px;
   border-style: solid;
-  padding: 10px;
+}
+
+.articleDetails {
+  height: 60%;
+  width: auto;
+  /* padding: 50px; */
+  margin: 50px;
+}
+
+.navBar {
+  background-color: lightgray;
+  border: 1px;
+  border-style: solid;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+
+.navBarText {
+  padding: 5px;
+  /* font-size: 30px; */
+}
+
+/* button {
+  width: 25%;
+  height: auto;
+  border: 1px;
+  border-style: solid;
+
+} */
+
+button {
+  background-color: slategray; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 250px
 }

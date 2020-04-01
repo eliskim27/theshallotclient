@@ -4,15 +4,18 @@ import ArticleCard from './ArticleCard'
 class StarContainer extends React.Component {
     render () {
         return (
-            this.props.displayArticles.map(article => {
-                return(
-                    <ArticleCard 
-                        singleclick={this.props.singleclick}
-                        key={article.id}
-                        article={article}
-                    />
-                )
-            })
+            <div>
+            <h3>Currently Viewing All Favorites</h3>
+                {this.props.displayArticles.map(article => {
+                    return(
+                        <ArticleCard 
+                            singleclick={this.props.singleclick}
+                            key={article.id}
+                            article={article}
+                        />
+                    )
+                })}
+            </div>
         )
     }
 

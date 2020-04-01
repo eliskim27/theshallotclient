@@ -4,7 +4,9 @@ import ArticleCard from './ArticleCard'
 class ArticleContainer extends React.Component {
     render () {
         return (
-            this.props.allArticles.map(article => {
+            <div>
+            <h3>Currently Viewing All Articles</h3>
+            {this.props.allArticles.map(article => {
                 return(
                     <ArticleCard 
                         singleclick={this.props.singleclick}
@@ -12,7 +14,8 @@ class ArticleContainer extends React.Component {
                         article={article}
                     />
                 )
-            })
+            })}
+            </div>
         )
     }
 

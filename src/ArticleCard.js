@@ -6,7 +6,7 @@ class ArticleCard extends React.Component {
             <div class="articleCard" onClick={() => this.props.singleclick(this.props.article)}>
                 <img 
                     src={this.props.article.urlToImage}
-                    alt={"Somethings gone terribly wrong"}
+                    alt=" No Image Available"
                     class="articleImage"
                 >
                 </img>
